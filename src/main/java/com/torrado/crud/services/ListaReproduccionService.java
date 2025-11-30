@@ -1,5 +1,6 @@
 package com.torrado.crud.services;
 
+import com.torrado.crud.entities.Cancion;
 import com.torrado.crud.entities.ListaReproduccion;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface ListaReproduccionService {
     void deleteByNombre(String nombre);
 
     boolean existsByNombre(String nombre);
+
+    Optional<ListaReproduccion> agregarCancion(String nombreLista, Cancion cancion);
+
+    Optional<ListaReproduccion> eliminarCancion(String nombreLista, Long cancionId);
 }

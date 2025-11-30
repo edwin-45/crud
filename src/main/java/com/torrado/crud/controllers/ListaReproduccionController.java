@@ -1,6 +1,7 @@
 package com.torrado.crud.controllers;
 
 
+import com.torrado.crud.entities.Cancion;
 import com.torrado.crud.entities.ListaReproduccion;
 import com.torrado.crud.services.ListaReproduccionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,4 +65,25 @@ public class ListaReproduccionController {
         listaService.deleteByNombre(listName);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{listName}/canciones")
+    public ResponseEntity<ListaReproduccion> agregarCancion(
+            @PathVariable String listName,
+            @RequestBody Cancion cancion) {
+
+        return listaService.agregarCancion(listName, cancion)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{listName}/canciones/{cancionId}")
+    public ResponseEntity<ListaReproduccion> eliminarCancion(
+            @PathVariable String listName,
+            @PathVariable Long cancionId) {
+
+        return listaService.eliminarCancion(listName, cancionId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }

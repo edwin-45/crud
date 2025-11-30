@@ -1,5 +1,6 @@
 package com.torrado.crud.services;
 
+import com.torrado.crud.entities.Cancion;
 import com.torrado.crud.entities.ListaReproduccion;
 import com.torrado.crud.repositories.ListaReproduccionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,24 @@ public class ListaReproduccionServiceImpl implements ListaReproduccionService{
     @Transactional(readOnly = true)
     public boolean existsByNombre(String nombre) {
         return listaRepository.existsByNombre(nombre);
+    }
+
+    @Transactional
+    public Optional<ListaReproduccion> agregarCancion(String nombreLista, Cancion cancion) {
+        return findByNombre(nombreLista)
+                .map(lista -> {
+                    cancion.setLista(lista);
+                    lista.getCanciones().add(cancion);
+                    return save(lista);
+                });
+    }
+
+    @Transactional
+    public Optional<ListaReproduccion> eliminarCancion(String nombreLista, Long cancionId) {
+        return findByNombre(nombreLista)
+                .map(lista -> {
+                    lista.getCanciones().removeIf(c -> c.getId().equals(cancionId));
+                    return save(lista);
+                });
     }
 }

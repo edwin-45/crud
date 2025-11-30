@@ -46,10 +46,7 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/users").permitAll()
                         .requestMatchers(HttpMethod.POST,"/users/register").permitAll()
                         .requestMatchers(HttpMethod.POST,"/users").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/api/products").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET,"/api/products","/api/products/{id}").hasAnyRole("ADMIN","USER")
-                        .requestMatchers(HttpMethod.PUT,"/api/products/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE,"/api/products/{id}").hasRole("ADMIN")
+
                         //endpoint lista reproduccion y cancion
                         .requestMatchers(HttpMethod.GET, "/lists", "/lists/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST, "/lists").hasAnyRole("ADMIN", "USER")
